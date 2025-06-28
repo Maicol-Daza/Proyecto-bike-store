@@ -585,7 +585,7 @@ textarea.form-control {
     margin-bottom: 30px;
 }
 
-.btn-generate, .btn-export {
+.btn-generate {
     background-color: #4CAF50;
     color: white;
     border: none;
@@ -597,9 +597,6 @@ textarea.form-control {
     gap: 5px;
 }
 
-.btn-export {
-    background-color: #2196F3;
-}
 
 .report-actions {
     display: flex;
