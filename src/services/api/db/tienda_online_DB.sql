@@ -16,7 +16,8 @@ CREATE TABLE productos (
     precio DECIMAL(10,2),
     categoria VARCHAR(100),
     descripcion TEXT,
-    stock int default 10
+    stock int default 10,
+    activo TINYINT(1) NOT NULL DEFAULT 1
 );
 
 CREATE TABLE ventas (
@@ -35,8 +36,9 @@ CREATE TABLE detalle_venta (
     cantidad INT,
     precio_unitario DECIMAL(10,2),
     FOREIGN KEY (id_producto) REFERENCES productos(id),
-    FOREIGN KEY (id_venta) REFERENCES ventas(id)
+    FOREIGN KEY (id_venta) REFERENCES ventas(id) ON DELETE CASCADE
 );
+
 
 INSERT INTO usuarios (nombre, apellido, email, contrasena, rol) VALUES
 ('Sam', 'R', 'sam@bike.com', '12345678', 'Administrador'),
@@ -44,37 +46,21 @@ INSERT INTO usuarios (nombre, apellido, email, contrasena, rol) VALUES
 ('Tony', 'Stark', 'tony@Stark.com', 'IronMan123', 'Cliente');
 
 
-INSERT INTO ventas (id_usuario, fecha_venta, estado_venta, venta_total) 
-VALUES 
-(1, '2023-05-15', 'Completada', 1250.75),
-(2, '2023-05-16', 'Pendiente', 899.99),
-(3, '2023-05-17', 'Cancelada', 450.50),
-(1, '2023-05-18', 'Completada', 3200.00),
-(4, '2023-05-19', 'En proceso', 175.25);
-
 show tables ;
 show databases ;
+
+
 select * from usuarios;
 select * from productos;
 select * from ventas;
 select * from detalle_venta;
 
-ALTER TABLE detalle_venta DROP FOREIGN KEY detalle_venta_ibfk_2;
-ALTER TABLE detalle_venta ADD CONSTRAINT detalle_venta_ibfk_2 FOREIGN KEY (id_venta) REFERENCES ventas(id) ON DELETE CASCADE;
-ALTER TABLE productos ADD COLUMN activo TINYINT(1) NOT NULL DEFAULT 1;
-
-ALTER TABLE productos drop COLUMN caracteristicas ;
-ALTER TABLE productos ADD COLUMN caracteristicas TEXT;
-ALTER TABLE productos MODIFY imagen VARCHAR(255);
 
 DROP DATABASE tienda_online;
 DROP table ventas;
 DROP table detalle_venta;
 DROP table usuarios;
 DROP table productos;
-
-INSERT INTO ventas (id_usuario, fecha_venta, estado_venta, venta_total)
-VALUES (1, '2025-04-12', 'Completada', 1500.00);
 
 
  INSERT INTO productos (nombre, imagen, precio, categoria, descripcion) VALUES
